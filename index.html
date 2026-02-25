@@ -522,7 +522,7 @@
       <div style="background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.2);border-radius:8px;padding:12px;text-align:center;">
         <div style="font-size:18px;margin-bottom:4px;">🕸️</div>
         <div style="font-size:11px;font-family:'Space Mono',monospace;color:var(--future)">NEO4J</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Relationship Graph — details TBD</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Relationship Graph — partnership networks, account dependencies, knowledge graphs</div>
       </div>
       <div style="background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.15);border-radius:8px;padding:12px;text-align:center;">
         <div style="font-size:18px;margin-bottom:4px;">🔌</div>
@@ -961,40 +961,93 @@
       <div class="section-title">Future Enhancements</div>
     </div>
 
+    <!-- Tool roles -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px;">
+
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--done)">🔷 Atlassian</div>
+        <div class="phase-item">Work hub — tickets, docs, planning</div>
+        <div class="phase-item">Jira = operational execution layer</div>
+        <div class="phase-item">Confluence = knowledge management</div>
+        <div class="phase-item">Atlas = goal/milestone visibility (when team populates)</div>
+        <div class="phase-item">Advanced Roadmaps = portfolio view</div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--accent2)">🔧 n8n</div>
+        <div class="phase-item">Automation glue — orchestrates everything</div>
+        <div class="phase-item">Webhook triggers from Confluence/Google Drive</div>
+        <div class="phase-item">Routes data between all tools</div>
+        <div class="phase-item">Calls Claude API for intelligence layer</div>
+        <div class="phase-item">Neo4j community nodes for graph ops</div>
+        <div class="phase-item">Salesforce triggers + data sync</div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--accent)">🤖 Claude AI</div>
+        <div class="phase-item">Intelligence layer — reasoning + generation</div>
+        <div class="phase-item">Parses meeting notes → structured JSON</div>
+        <div class="phase-item">MPI classification of action items</div>
+        <div class="phase-item">Natural language → graph queries (Neo4j MCP)</div>
+        <div class="phase-item">Salesforce data analysis via n8n</div>
+        <div class="phase-item">Cowork = human-facing interface on top</div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--hold)">☁️ Salesforce</div>
+        <div class="phase-item">CRM core — source of truth for all account data</div>
+        <div class="phase-item">Opportunity stages ↔ Jira partnership-stage labels</div>
+        <div class="phase-item">Company data: civilization, portfolio, contacts</div>
+        <div class="phase-item">Feeds Trip Reports workflow (company lookup)</div>
+        <div class="phase-item">Ingest into Neo4j for account network graphs</div>
+        <div class="phase-item">SF data audit needed — determine high-value fields</div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--future)">🕸️ Neo4j</div>
+        <div class="phase-item">Relationship hub — surfaces hidden connections</div>
+        <div class="phase-item">Maps partnership networks from SF + Jira data</div>
+        <div class="phase-item">Jira ticket dependency graphs</div>
+        <div class="phase-item">Knowledge graphs from Confluence docs</div>
+        <div class="phase-item">GraphRAG pipelines with Claude via MCP</div>
+        <div class="phase-item">Account relationship visualizations from SF Data 360</div>
+      </div>
+
+    </div>
+
+    <!-- Phase columns -->
     <div class="phase-grid">
       <div class="phase-col">
         <div class="phase-col-header" style="background:rgba(0,229,160,0.08);color:var(--done)">MVP — Now</div>
         <div class="phase-col-body">
-          <div class="phase-item">Meeting Notes → Jira (✓ done)</div>
-          <div class="phase-item">Initiative page auto-updater (✓ done)</div>
-          <div class="phase-item">Basic Slack notifications</div>
-          <div class="phase-item">Label taxonomy enforcement</div>
-          <div class="phase-item">Jira data quality rules</div>
+          <div class="phase-item">✓ WF1: External Meeting Notes → Jira</div>
+          <div class="phase-item">✓ WF2: Internal Weekly → Initiative Pages</div>
+          <div class="phase-item">✓ Label taxonomy + standards</div>
+          <div class="phase-item">Jira data quality enforcement</div>
+          <div class="phase-item">Slack notifications (in progress)</div>
         </div>
       </div>
       <div class="phase-col">
         <div class="phase-col-header" style="background:rgba(0,102,255,0.08);color:var(--planned)">Phase 2 — Intelligence</div>
         <div class="phase-col-body">
-          <div class="phase-item">Trip Reports workflow (SF unblocked)</div>
+          <div class="phase-item">WF3: Trip Reports (SF unblocked)</div>
           <div class="phase-item">Salesforce bidirectional sync</div>
-          <div class="phase-item">SF data audit — determine high-value fields</div>
+          <div class="phase-item">SF data audit — high-value fields</div>
           <div class="phase-item">Context-aware MPI classification</div>
           <div class="phase-item">Duplicate Epic detection</div>
-          <div class="phase-item">Assignee continuity routing</div>
-          <div class="phase-item">Atlas integration (team data in first)</div>
+          <div class="phase-item">Atlas integration (team data first)</div>
           <div class="phase-item">Cowork plugins — org-wide rollout</div>
         </div>
       </div>
       <div class="phase-col">
         <div class="phase-col-header" style="background:rgba(168,85,247,0.08);color:var(--future)">Phase 3 — Graph + ML</div>
         <div class="phase-col-body">
-          <div class="phase-item">Neo4j — relationship graph (details TBD)</div>
+          <div class="phase-item">Neo4j — partnership + account graphs</div>
+          <div class="phase-item">GraphRAG via Claude MCP + Neo4j</div>
           <div class="phase-item">ML-based MPI classification</div>
-          <div class="phase-item">Auto-priority detection from context</div>
-          <div class="phase-item">Calendar integration (sync w/ Evgeniya/Ivan/Alina)</div>
+          <div class="phase-item">Calendar integration (Evgeniya/Ivan/Alina)</div>
           <div class="phase-item">Weekly digest per Initiative</div>
           <div class="phase-item">Historical partnership timeline</div>
-          <div class="phase-item">Company relationship mapping via Neo4j</div>
         </div>
       </div>
       <div class="phase-col">
@@ -1026,6 +1079,8 @@
         <div class="arch-layer-title" style="color:var(--accent2)">Documentation</div>
         <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/23999317041/GSIP+Label+Taxonomy+and+Standards" target="_blank" style="color:var(--text);text-decoration:none;">Label Taxonomy &amp; Standards</a></div>
         <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/24000626926/Complete+JIRA+Setup+Guide+for+GSIP+Team+with+Automation+and+Integration+Features" target="_blank" style="color:var(--text);text-decoration:none;">GSIP Workflow Overview</a></div>
+        <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/24151461418/Complete+Workflow+Documentation+-+Meeting+Notes+Automation" target="_blank" style="color:var(--text);text-decoration:none;">Complete Workflow Documentation</a></div>
+        <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/24152476317/n8n+Workflow+Best+Practices+Gotchas" target="_blank" style="color:var(--text);text-decoration:none;">n8n Best Practices &amp; Gotchas</a></div>
         <div class="arch-tool">🎥 <a href="https://www.loom.com/share/8823695807064dde892961f9774396b5" target="_blank" style="color:var(--text);text-decoration:none;">Loom Walkthrough — External Meeting Notes</a></div>
       </div>
     </div>
