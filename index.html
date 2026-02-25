@@ -36,7 +36,6 @@
     min-height: 100vh;
   }
 
-  /* Grid background */
   body::before {
     content: '';
     position: fixed;
@@ -57,10 +56,7 @@
     padding: 48px 24px;
   }
 
-  /* HEADER */
-  .header {
-    margin-bottom: 56px;
-  }
+  .header { margin-bottom: 56px; }
 
   .header-eyebrow {
     font-family: 'Space Mono', monospace;
@@ -91,9 +87,7 @@
     margin-bottom: 16px;
   }
 
-  h1 span {
-    color: var(--accent);
-  }
+  h1 span { color: var(--accent); }
 
   .header-sub {
     color: var(--muted);
@@ -102,7 +96,6 @@
     line-height: 1.7;
   }
 
-  /* LEGEND */
   .legend {
     display: flex;
     gap: 20px;
@@ -130,10 +123,7 @@
     flex-shrink: 0;
   }
 
-  /* SECTION */
-  .section {
-    margin-bottom: 48px;
-  }
+  .section { margin-bottom: 48px; }
 
   .section-header {
     display: flex;
@@ -164,7 +154,6 @@
     letter-spacing: -0.01em;
   }
 
-  /* WORKFLOW CARD */
   .workflow {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -174,9 +163,7 @@
     transition: border-color 0.2s;
   }
 
-  .workflow:hover {
-    border-color: rgba(0,229,160,0.2);
-  }
+  .workflow:hover { border-color: rgba(0,229,160,0.2); }
 
   .workflow-header {
     padding: 20px 24px;
@@ -203,9 +190,7 @@
   .icon-planned { background: rgba(0,102,255,0.1); }
   .icon-future { background: rgba(168,85,247,0.1); }
 
-  .wf-title-area {
-    flex: 1;
-  }
+  .wf-title-area { flex: 1; }
 
   .wf-name {
     font-size: 16px;
@@ -242,9 +227,7 @@
     font-size: 12px;
   }
 
-  .workflow.open .wf-chevron {
-    transform: rotate(90deg);
-  }
+  .workflow.open .wf-chevron { transform: rotate(90deg); }
 
   .wf-body {
     display: none;
@@ -252,11 +235,8 @@
     padding: 24px;
   }
 
-  .workflow.open .wf-body {
-    display: block;
-  }
+  .workflow.open .wf-body { display: block; }
 
-  /* Flow diagram */
   .flow {
     display: flex;
     align-items: center;
@@ -284,12 +264,11 @@
     font-size: 14px;
   }
 
-  /* Details grid */
   .details-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   @media (max-width: 600px) {
@@ -301,6 +280,7 @@
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 16px;
+    margin-bottom: 16px;
   }
 
   .detail-label {
@@ -312,9 +292,7 @@
     margin-bottom: 10px;
   }
 
-  .detail-list {
-    list-style: none;
-  }
+  .detail-list { list-style: none; }
 
   .detail-list li {
     font-size: 12px;
@@ -333,12 +311,12 @@
   .planned-c { color: var(--planned); }
   .block-c { color: #ef4444; }
 
-  /* Open questions */
   .open-q {
     background: rgba(255,107,53,0.05);
     border: 1px solid rgba(255,107,53,0.2);
     border-radius: 8px;
     padding: 16px;
+    margin-top: 16px;
   }
 
   .open-q-label {
@@ -350,9 +328,7 @@
     margin-bottom: 10px;
   }
 
-  .open-q ul {
-    list-style: none;
-  }
+  .open-q ul { list-style: none; }
 
   .open-q li {
     font-size: 12px;
@@ -373,7 +349,6 @@
     margin-top: 1px;
   }
 
-  /* PHASE TABLE */
   .phase-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -398,9 +373,7 @@
     font-weight: 600;
   }
 
-  .phase-col-body {
-    padding: 12px 14px;
-  }
+  .phase-col-body { padding: 12px 14px; }
 
   .phase-item {
     font-size: 11px;
@@ -412,7 +385,6 @@
 
   .phase-item:last-child { border: none; }
 
-  /* System architecture */
   .arch {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -473,14 +445,12 @@
     font-family: 'Space Mono', monospace;
   }
 
-  /* Divider */
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
     margin: 48px 0;
   }
 
-  /* Footer note */
   .footer-note {
     color: var(--muted);
     font-size: 12px;
@@ -490,7 +460,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* Blockers banner */
   .blocker-banner {
     background: rgba(239,68,68,0.07);
     border: 1px solid rgba(239,68,68,0.25);
@@ -502,10 +471,8 @@
     gap: 10px;
   }
 
-  .blocker-icon { color: #ef4444; flex-shrink: 0; }
-
+  .blocker-icon { flex-shrink: 0; }
   .blocker-text { font-size: 12px; line-height: 1.6; }
-
   .blocker-text strong { color: #ef4444; }
 </style>
 </head>
@@ -631,7 +598,7 @@
           <div class="flow-node">Slack alert</div>
         </div>
         <div class="details-grid">
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">What it does</div>
             <ul class="detail-list">
               <li><span class="check">✓</span> Triggers on Confluence page publish</li>
@@ -640,10 +607,10 @@
               <li><span class="check">✓</span> Creates company-specific Epic</li>
               <li><span class="check">✓</span> Creates Tasks per action item with full labels</li>
               <li><span class="check">✓</span> Posts summary comment back to Confluence page</li>
-              <li><span class="flow-node">✓</span> Slack success + error notifications to #gsip-alerts - being configured</li>
+              <li><span class="pending">⟳</span> Slack notifications to #gsip-alerts — being configured</li>
             </ul>
           </div>
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Label taxonomy applied</div>
             <ul class="detail-list">
               <li><span class="check">✓</span> doc-type, company, initiative</li>
@@ -654,26 +621,27 @@
             </ul>
           </div>
         </div>
-        <div class="detail-block">
-          <div class="detail-label">Performance</div>
-          <ul class="detail-list">
-            <li><span class="check">✓</span> ~40 seconds end-to-end</li>
-            <li><span class="check">✓</span> Saves 10–15 min of manual Jira work per meeting</li>
-            <li><span class="check">✓</span> Production-ready, DRY architecture</li>
-          </ul>
-        </div>
-        <div class="detail-block">
-          <div class="detail-label" style="margin-bottom:16px">V2 Updates</div>
+        <div class="details-grid">
+          <div class="detail-block" style="margin-bottom:0">
+            <div class="detail-label">Performance</div>
             <ul class="detail-list">
-              <li><span class="planned-c">→</span>Push updates to Atlas</li>
-              <li><span class="planned-c">→</span>Push and Get updates to/from Salesforce</li>
-              <li><span class="planned-c">→</span> Push updates to Salesforce</li>
+              <li><span class="check">✓</span> ~40 seconds end-to-end</li>
+              <li><span class="check">✓</span> Saves 10–15 min of manual Jira work per meeting</li>
+              <li><span class="check">✓</span> Production-ready, DRY architecture</li>
+            </ul>
+          </div>
+          <div class="detail-block" style="margin-bottom:0">
+            <div class="detail-label">V2 Updates</div>
+            <ul class="detail-list">
+              <li><span class="planned-c">→</span> Push updates to Atlas</li>
+              <li><span class="planned-c">→</span> Push and get updates to/from Salesforce</li>
             </ul>
           </div>
         </div>
       </div>
+    </div>
 
-    <!-- WF1b - Initiative Page Updater -->
+    <!-- WF2 -->
     <div class="workflow" onclick="toggle(this)">
       <div class="workflow-header">
         <div class="wf-icon icon-done">🔄</div>
@@ -703,7 +671,7 @@
           <div class="blocker-text"><strong style="color:var(--done)">Working end-to-end.</strong> Publishing and editing updates initiative home pages. Child pages per initiative in place for v1.2. Next: sync with all initiative owners to understand their needs before adding further functionality.</div>
         </div>
         <div class="details-grid">
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Architecture decisions</div>
             <ul class="detail-list">
               <li><span class="check">✓</span> Build JSON payloads in code nodes (not HTTP expressions)</li>
@@ -712,7 +680,7 @@
               <li><span class="check">✓</span> Publisher → email mapping dictionary</li>
             </ul>
           </div>
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Next steps</div>
             <ul class="detail-list">
               <li><span class="planned-c">→</span> Sync with all initiative owners on their needs</li>
@@ -728,7 +696,7 @@
 
   <div class="divider"></div>
 
-  <!-- ON HOLD WORKFLOWS -->
+  <!-- ON HOLD -->
   <div class="section">
     <div class="section-header">
       <div class="section-tag tag-active">⏸ On Hold</div>
@@ -762,7 +730,7 @@
           <div class="flow-node">Create Epics + Tasks</div>
         </div>
         <div class="details-grid">
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">MVP scope (confirmed)</div>
             <ul class="detail-list">
               <li><span class="check">✓</span> Initiative field required in Google Doc (blocks if missing)</li>
@@ -771,22 +739,23 @@
               <li><span class="check">✓</span> MPI: keyword-based for MVP</li>
               <li><span class="check">✓</span> Civilization pulled from Salesforce (not trip destination)</li>
               <li><span class="check">✓</span> Slack notification with summary</li>
-              <li><span class="check">✓</span> If no actionable companies → Confluence only, no Jira</li>
+              <li><span class="check">✓</span> No actionable companies → Confluence only, no Jira</li>
             </ul>
           </div>
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Blockers / Unanswered</div>
             <ul class="detail-list">
               <li><span class="block-c">✗</span> Salesforce access method (MCP vs n8n API)</li>
-              <li><span class="block-c">✗</span> Company matching logic (name fuzzy match? Account ID?)</li>
-              <li><span class="block-c">✗</span> Which Salesforce fields to pull (civilization, portfolio, status)</li>
-              <li><span class="block-c">✗</span> Google Drive folder structure + admin permissions needed</li>
+              <li><span class="block-c">✗</span> Company matching logic (fuzzy match? Account ID?)</li>
+              <li><span class="block-c">✗</span> Which Salesforce fields to pull</li>
+              <li><span class="block-c">✗</span> Google Drive folder structure + admin permissions</li>
               <li><span class="block-c">✗</span> What if company not yet in Salesforce?</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="divider"></div>
@@ -802,7 +771,7 @@
       <div class="workflow-header">
         <div class="wf-icon icon-planned">↔️</div>
         <div class="wf-title-area">
-          <div class="wf-name">Workflow 2a — Salesforce ↔ Jira/Confluence Sync</div>
+          <div class="wf-name">Salesforce ↔ Jira/Confluence Sync</div>
           <div class="wf-subtitle">Bidirectional: pull account data from SF into Jira fields; push Jira label changes back to SF opportunity stages</div>
         </div>
         <div class="wf-status status-planned">Planned</div>
@@ -819,11 +788,11 @@
           <div class="flow-node">Update Salesforce Opportunity</div>
         </div>
         <div class="details-grid">
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Space ID lookup table (confirmed)</div>
             <ul class="detail-list">
               <li>BAKU <span class="planned-c">→</span> 24079138910</li>
-              <li>I&A <span class="planned-c">→</span> 24155457018</li>
+              <li>I&amp;A <span class="planned-c">→</span> 24155457018</li>
               <li>GDC <span class="planned-c">→</span> 24172691939</li>
               <li>DICE <span class="planned-c">→</span> 24173805957</li>
               <li>VIETNAM <span class="planned-c">→</span> 23461429623</li>
@@ -831,7 +800,7 @@
               <li>MENA <span class="planned-c">→</span> 24095556109</li>
             </ul>
           </div>
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Architecture notes</div>
             <ul class="detail-list">
               <li><span class="check">✓</span> SF = system of record for account data</li>
@@ -866,7 +835,7 @@
       </div>
       <div class="wf-body">
         <div class="details-grid">
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Immediate (project-level, no admin needed)</div>
             <ul class="detail-list">
               <li><span class="planned-c">→</span> Automation rule: flag tickets missing portfolio label</li>
@@ -875,7 +844,7 @@
               <li><span class="planned-c">→</span> Slack alert when non-compliant ticket created</li>
             </ul>
           </div>
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Requires Jira Admin</div>
             <ul class="detail-list">
               <li><span class="pending">⟳</span> Mark Epic Link as required field</li>
@@ -899,15 +868,15 @@
         <div class="wf-icon icon-hold">🗺️</div>
         <div class="wf-title-area">
           <div class="wf-name">Atlas Integration</div>
-          <div class="wf-subtitle">Auto-update Atlas goals/milestones from Jira + Confluence data — non-negotiable in the vision, blocked on team populating Atlas first</div>
+          <div class="wf-subtitle">Auto-update Atlas goals/milestones from Jira + Confluence data — blocked on team populating Atlas first</div>
         </div>
         <div class="wf-status status-hold">Blocked — Team</div>
         <div class="wf-chevron">▶</div>
       </div>
       <div class="wf-body">
         <div class="blocker-banner">
-          <div class="blocker-icon">⏳</div>
-          <div class="blocker-text"><strong>Blocked:</strong> Waiting on internal team to actually put their data into Atlas. Can't build meaningful automation against empty data. Once teams are using it, the workflow can bi-directionally sync Jira task completion → Atlas goal progress, and Confluence meeting notes → Atlas project updates.</div>
+          <div class="blocker-icon" style="color:#ef4444">⏳</div>
+          <div class="blocker-text"><strong>Blocked:</strong> Waiting on internal team to populate Atlas. Can't build meaningful automation against empty data. Once teams are using it, the workflow can bi-directionally sync Jira task completion → Atlas goal progress and Confluence notes → Atlas project updates.</div>
         </div>
         <div class="detail-block">
           <div class="detail-label">Intended role (when unblocked)</div>
@@ -933,7 +902,7 @@
       </div>
       <div class="wf-body">
         <div class="details-grid">
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Architecture: Two-layer model</div>
             <ul class="detail-list">
               <li><span class="planned-c">Global</span> Jira hierarchy standards, Confluence conventions, data quality audits, shared label taxonomy</li>
@@ -942,7 +911,7 @@
               <li><span class="check">✓</span> n8n workflows = backend engine; Cowork = human interface</li>
             </ul>
           </div>
-          <div class="detail-block">
+          <div class="detail-block" style="margin-bottom:0">
             <div class="detail-label">Scope + next steps</div>
             <ul class="detail-list">
               <li>Team plugin: ~4–6 hours</li>
@@ -960,24 +929,32 @@
         <div class="wf-icon icon-planned">📅</div>
         <div class="wf-title-area">
           <div class="wf-name">Calendar → Meeting Prep (External Team)</div>
-          <div class="wf-subtitle">Calendar parsing + pre-meeting intelligence being built by Evgeniya Klass, Ivan Vireikin, and Alina Ovchinnikova — need to sync and align on connections with workflows and GSIP use cases</div>
+          <div class="wf-subtitle">Calendar parsing + pre-meeting intelligence being built by Evgeniya Klass, Ivan Vireikin, and Alina Ovchinnikova — need to sync and align on connections with GSIP workflows</div>
         </div>
         <div class="wf-status status-planned">Syncing</div>
         <div class="wf-chevron">▶</div>
       </div>
-      <div class="detail-block">
-        <div class="detail-label">People</div>
-        <ul class="detail-list">
-          <li>Evgeniya Klass — screens/design, already connected</li>
-          <li>Ivan Vireikin — technical details</li>
-          <li>Alina Ovchinnikova — technical details</li>
-        </ul>
+      <div class="wf-body">
+        <div class="blocker-banner" style="background:rgba(0,102,255,0.05);border-color:rgba(0,102,255,0.2);">
+          <div class="blocker-icon" style="color:var(--planned)">ℹ</div>
+          <div class="blocker-text"><strong style="color:var(--planned)">Action needed:</strong> Spoke with Evgeniya — she shared screens of what's in work. Ivan and Alina own the technical details. Create new chat with them directly (it's an invitation, not an intro from Evgeniya).</div>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">People</div>
+          <ul class="detail-list">
+            <li>Evgeniya Klass — screens/design, already connected</li>
+            <li>Ivan Vireikin — technical details, need to reach out</li>
+            <li>Alina Ovchinnikova — technical details, need to reach out</li>
+          </ul>
+        </div>
       </div>
     </div>
 
+  </div>
+
   <div class="divider"></div>
 
-  <!-- PHASE ROADMAP -->
+  <!-- FUTURE ENHANCEMENTS -->
   <div class="section">
     <div class="section-header">
       <div class="section-tag tag-future">◎ Phase 2–3</div>
@@ -989,7 +966,7 @@
         <div class="phase-col-header" style="background:rgba(0,229,160,0.08);color:var(--done)">MVP — Now</div>
         <div class="phase-col-body">
           <div class="phase-item">Meeting Notes → Jira (✓ done)</div>
-          <div class="phase-item">Initiative page auto-updater (debugging)</div>
+          <div class="phase-item">Initiative page auto-updater (✓ done)</div>
           <div class="phase-item">Basic Slack notifications</div>
           <div class="phase-item">Label taxonomy enforcement</div>
           <div class="phase-item">Jira data quality rules</div>
@@ -998,9 +975,9 @@
       <div class="phase-col">
         <div class="phase-col-header" style="background:rgba(0,102,255,0.08);color:var(--planned)">Phase 2 — Intelligence</div>
         <div class="phase-col-body">
-          <div class="phase-item">Trip Reports workflow (Salesforce unblocked)</div>
+          <div class="phase-item">Trip Reports workflow (SF unblocked)</div>
           <div class="phase-item">Salesforce bidirectional sync</div>
-          <div class="phase-item">SF data audit — determine which fields add value</div>
+          <div class="phase-item">SF data audit — determine high-value fields</div>
           <div class="phase-item">Context-aware MPI classification</div>
           <div class="phase-item">Duplicate Epic detection</div>
           <div class="phase-item">Assignee continuity routing</div>
@@ -1011,8 +988,8 @@
       <div class="phase-col">
         <div class="phase-col-header" style="background:rgba(168,85,247,0.08);color:var(--future)">Phase 3 — Graph + ML</div>
         <div class="phase-col-body">
-          <div class="phase-item">Neo4j integration — relationship graph (details TBD)</div>
-          <div class="phase-item">ML-based MPI classification (learns from corrections)</div>
+          <div class="phase-item">Neo4j — relationship graph (details TBD)</div>
+          <div class="phase-item">ML-based MPI classification</div>
           <div class="phase-item">Auto-priority detection from context</div>
           <div class="phase-item">Calendar integration (sync w/ Evgeniya/Ivan/Alina)</div>
           <div class="phase-item">Weekly digest per Initiative</div>
@@ -1047,7 +1024,7 @@
       </div>
       <div class="arch-layer">
         <div class="arch-layer-title" style="color:var(--accent2)">Documentation</div>
-        <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/23999317041/GSIP+Label+Taxonomy+and+Standards" target="_blank" style="color:var(--text);text-decoration:none;">Label Taxonomy & Standards</a></div>
+        <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/23999317041/GSIP+Label+Taxonomy+and+Standards" target="_blank" style="color:var(--text);text-decoration:none;">Label Taxonomy &amp; Standards</a></div>
         <div class="arch-tool">📄 <a href="https://xsolla.atlassian.net/wiki/spaces/GSIGR/pages/24000626926/Complete+JIRA+Setup+Guide+for+GSIP+Team+with+Automation+and+Integration+Features" target="_blank" style="color:var(--text);text-decoration:none;">GSIP Workflow Overview</a></div>
         <div class="arch-tool">🎥 <a href="https://www.loom.com/share/8823695807064dde892961f9774396b5" target="_blank" style="color:var(--text);text-decoration:none;">Loom Walkthrough — External Meeting Notes</a></div>
       </div>
