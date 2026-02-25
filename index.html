@@ -8,19 +8,19 @@
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap');
 
   :root {
-    --bg: #0a0c10;
-    --surface: #111318;
-    --surface2: #181c24;
-    --border: #1e2430;
-    --accent: #00e5a0;
-    --accent2: #0066ff;
-    --accent3: #ff6b35;
+    --bg: #141D1F;
+    --surface: #1a2426;
+    --surface2: #1f2c2f;
+    --border: #263235;
+    --accent: #80EAFF;
+    --accent2: #9580FF;
+    --accent3: #D9FF66;
     --accent4: #a855f7;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --done: #00e5a0;
-    --hold: #ff6b35;
-    --planned: #0066ff;
+    --text: #E8ECED;
+    --muted: #B7C5C8;
+    --done: #80EAFF;
+    --hold: #D9FF66;
+    --planned: #9580FF;
     --future: #a855f7;
     --stretch: #ec4899;
   }
@@ -41,8 +41,8 @@
     position: fixed;
     inset: 0;
     background-image: 
-      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(128,234,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(128,234,255,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
@@ -481,6 +481,7 @@
 
   <!-- HEADER -->
   <div class="header">
+    <img src="https://media.ffycdn.net/us/xsolla/zdUJ6HsEk1Bp4YCa6aNc.png?width=600&format=webp&quality=75" alt="Xsolla" style="height:36px;margin:0;padding:0;display:block;margin-bottom:32px;">
     <div class="header-eyebrow">GSIP · Technical Strategy · Xsolla</div>
     <h1>Workflow Automation<br><span>Roadmap</span></h1>
     <p class="header-sub">End-to-end intelligence layer connecting meeting notes, trip reports, and partnership data across Confluence, Jira, Slack, Salesforce, and Google Drive — powered by n8n + Claude AI.</p>
@@ -970,7 +971,8 @@
         <div class="phase-item">Jira = operational execution layer</div>
         <div class="phase-item">Confluence = knowledge management</div>
         <div class="phase-item">Atlas = goal/milestone visibility (when team populates)</div>
-        <div class="phase-item">Advanced Roadmaps = portfolio view</div>
+        <div class="phase-item">Advanced Roadmaps = high-level view only</div>
+        <div class="phase-item">Custom dashboard = real portfolio intelligence</div>
       </div>
 
       <div class="arch-layer">
@@ -1053,6 +1055,7 @@
       <div class="phase-col">
         <div class="phase-col-header" style="background:rgba(236,72,153,0.08);color:var(--stretch)">Stretch — Vision</div>
         <div class="phase-col-body">
+          <div class="phase-item">🔥 Custom portfolio dashboard (replacing Advanced Roadmaps)</div>
           <div class="phase-item">Voice notes → Jira tasks</div>
           <div class="phase-item">Email parsing → Jira</div>
           <div class="phase-item">Slack thread → meeting notes</div>
