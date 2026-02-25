@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSIP Workflow Automation Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2430;
+    --accent: #00e5a0;
+    --accent2: #0066ff;
+    --accent3: #ff6b35;
+    --accent4: #a855f7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --done: #00e5a0;
+    --hold: #ff6b35;
+    --planned: #0066ff;
+    --future: #a855f7;
+    --stretch: #ec4899;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  /* HEADER */
+  .header {
+    margin-bottom: 56px;
+  }
+
+  .header-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .header-sub {
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .tag-done { background: rgba(0,229,160,0.15); color: var(--done); border: 1px solid rgba(0,229,160,0.3); }
+  .tag-active { background: rgba(255,107,53,0.15); color: var(--hold); border: 1px solid rgba(255,107,53,0.3); }
+  .tag-planned { background: rgba(0,102,255,0.15); color: var(--planned); border: 1px solid rgba(0,102,255,0.3); }
+  .tag-future { background: rgba(168,85,247,0.15); color: var(--future); border: 1px solid rgba(168,85,247,0.3); }
+  .tag-stretch { background: rgba(236,72,153,0.15); color: var(--stretch); border: 1px solid rgba(236,72,153,0.3); }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* WORKFLOW CARD */
+  .workflow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .workflow:hover {
+    border-color: rgba(0,229,160,0.2);
+  }
+
+  .workflow-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .wf-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .icon-done { background: rgba(0,229,160,0.1); }
+  .icon-hold { background: rgba(255,107,53,0.1); }
+  .icon-planned { background: rgba(0,102,255,0.1); }
+  .icon-future { background: rgba(168,85,247,0.1); }
+
+  .wf-title-area {
+    flex: 1;
+  }
+
+  .wf-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .wf-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .wf-status {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .status-done { background: rgba(0,229,160,0.1); color: var(--done); }
+  .status-hold { background: rgba(255,107,53,0.1); color: var(--hold); }
+  .status-planned { background: rgba(0,102,255,0.1); color: var(--planned); }
+  .status-future { background: rgba(168,85,247,0.1); color: var(--future); }
+
+  .wf-chevron {
+    color: var(--muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-top: 4px;
+    font-size: 12px;
+  }
+
+  .workflow.open .wf-chevron {
+    transform: rotate(90deg);
+  }
+
+  .wf-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 24px;
+  }
+
+  .workflow.open .wf-body {
+    display: block;
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .flow-node {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  /* Details grid */
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 600px) {
+    .details-grid { grid-template-columns: 1fr; }
+  }
+
+  .detail-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .detail-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .detail-list {
+    list-style: none;
+  }
+
+  .detail-list li {
+    font-size: 12px;
+    color: var(--text);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .detail-list li:last-child { border: none; }
+
+  .check { color: var(--done); }
+  .pending { color: var(--hold); }
+  .planned-c { color: var(--planned); }
+  .block-c { color: #ef4444; }
+
+  /* Open questions */
+  .open-q {
+    background: rgba(255,107,53,0.05);
+    border: 1px solid rgba(255,107,53,0.2);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .open-q-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--hold);
+    margin-bottom: 10px;
+  }
+
+  .open-q ul {
+    list-style: none;
+  }
+
+  .open-q li {
+    font-size: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,107,53,0.1);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .open-q li:last-child { border: none; }
+
+  .q-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--hold);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* PHASE TABLE */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .phase-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .phase-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .phase-col-header {
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .phase-col-body {
+    padding: 12px 14px;
+  }
+
+  .phase-item {
+    font-size: 11px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.4;
+  }
+
+  .phase-item:last-child { border: none; }
+
+  /* System architecture */
+  .arch {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 48px;
+  }
+
+  .arch-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .arch-grid { grid-template-columns: 1fr; }
+  }
+
+  .arch-layer {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .arch-layer-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .arch-tool {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+
+  .arch-tool:last-child { border: none; }
+
+  .arch-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  /* Footer note */
+  .footer-note {
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Blockers banner */
+  .blocker-banner {
+    background: rgba(239,68,68,0.07);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .blocker-icon { color: #ef4444; flex-shrink: 0; }
+
+  .blocker-text { font-size: 12px; line-height: 1.6; }
+
+  .blocker-text strong { color: #ef4444; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow">GSIP · Technical Strategy · Xsolla</div>
+    <h1>Workflow Automation<br><span>Roadmap</span></h1>
+    <p class="header-sub">End-to-end intelligence layer connecting meeting notes, trip reports, and partnership data across Confluence, Jira, Slack, Salesforce, and Google Drive — powered by n8n + Claude AI.</p>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="dot" style="background:var(--done)"></div> Shipped / Complete</div>
+    <div class="legend-item"><div class="dot" style="background:var(--hold)"></div> In Progress / On Hold</div>
+    <div class="legend-item"><div class="dot" style="background:var(--planned)"></div> Planned Next</div>
+    <div class="legend-item"><div class="dot" style="background:var(--future)"></div> Phase 2–3</div>
+    <div class="legend-item"><div class="dot" style="background:var(--stretch)"></div> Stretch Goal</div>
+  </div>
+
+  <!-- INTELLIGENCE LAYER CONCEPT -->
+  <div class="arch" style="border-color:rgba(0,229,160,0.2);margin-bottom:24px;">
+    <div class="arch-title">🧠 The Vision — Connected Intelligence Layer</div>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;line-height:1.7;">All workflows share a common taxonomy and data model. Salesforce is the system of record — the source of truth for all account, opportunity, and relationship data. The Atlassian suite handles operational execution and knowledge management. Neo4j surfaces relationship intelligence across the graph. n8n + Claude is the nervous system tying it all together. Cowork plugins are the human interface on top.</p>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center;margin-bottom:20px;">
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:4px;">☁️</div>
+        <div style="font-size:11px;font-family:'Space Mono',monospace;color:var(--done)">SALESFORCE</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Source of Truth</div>
+      </div>
+      <div style="text-align:center;color:var(--accent);font-size:18px;">⟷</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:4px;">🔧</div>
+        <div style="font-size:11px;font-family:'Space Mono',monospace;color:var(--accent2)">n8n + CLAUDE</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Nervous System</div>
+      </div>
+      <div style="text-align:center;color:var(--accent);font-size:18px;">⟷</div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:20px;margin-bottom:4px;">🔷</div>
+        <div style="font-size:11px;font-family:'Space Mono',monospace;color:var(--future)">ATLASSIAN</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Ops + Knowledge</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.2);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">🕸️</div>
+        <div style="font-size:11px;font-family:'Space Mono',monospace;color:var(--future)">NEO4J</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Relationship Graph — details TBD</div>
+      </div>
+      <div style="background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.15);border-radius:8px;padding:12px;text-align:center;">
+        <div style="font-size:18px;margin-bottom:4px;">🔌</div>
+        <div style="font-size:11px;font-family:'Space Mono',monospace;color:var(--done)">COWORK PLUGINS</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px;">Human Interface — Org-wide</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEM ARCHITECTURE -->
+  <div class="arch">
+    <div class="arch-title">⚙️ System Architecture</div>
+    <div class="arch-grid">
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--accent)">Inputs / Triggers</div>
+        <div class="arch-tool">📄 <span>Confluence page published</span></div>
+        <div class="arch-tool">📁 <span>Google Doc moved to folder</span></div>
+        <div class="arch-tool">📅 <span>Calendar event</span> <span class="arch-badge" style="background:rgba(168,85,247,0.1);color:var(--future)">Team: Evgeniya/Ivan/Alina</span></div>
+        <div class="arch-tool">💬 <span>Slack message (future)</span></div>
+      </div>
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--accent2)">Processing Engine</div>
+        <div class="arch-tool">🔧 <span>n8n</span> <span class="arch-badge" style="background:rgba(0,102,255,0.1);color:var(--accent2)">Orchestration</span></div>
+        <div class="arch-tool">🤖 <span>Claude AI</span> <span class="arch-badge" style="background:rgba(0,229,160,0.1);color:var(--done)">Intelligence</span></div>
+        <div class="arch-tool">🔌 <span>Atlassian MCP</span></div>
+        <div class="arch-tool">🔌 <span>Xsolla MCP</span></div>
+      </div>
+      <div class="arch-layer">
+        <div class="arch-layer-title" style="color:var(--accent3)">Outputs / Destinations</div>
+        <div class="arch-tool">🎯 <span>Jira Epics + Tasks</span></div>
+        <div class="arch-tool">📝 <span>Confluence pages/comments</span></div>
+        <div class="arch-tool">💬 <span>Slack #gsip-alerts</span></div>
+        <div class="arch-tool">☁️ <span>Salesforce (opp + account updates)</span></div>
+        <div class="arch-tool">🕸️ <span>Neo4j (relationship graph)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPLETED WORKFLOWS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag tag-done">✓ Shipped</div>
+      <div class="section-title">Completed Workflows</div>
+    </div>
+
+    <!-- WF1 -->
+    <div class="workflow open" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-done">📋</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Workflow 1 — External Meeting Notes → Jira</div>
+          <div class="wf-subtitle">Confluence template → Claude parses action items → Jira Initiative/Epic/Task hierarchy</div>
+        </div>
+        <div class="wf-status status-done">Complete</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="flow">
+          <div class="flow-node">Confluence page published</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">n8n webhook</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Claude AI parses</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Find/create Initiative</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Create Epic</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Create Tasks</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Confluence comment</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Slack alert</div>
+        </div>
+        <div class="details-grid">
+          <div class="detail-block">
+            <div class="detail-label">What it does</div>
+            <ul class="detail-list">
+              <li><span class="check">✓</span> Triggers on Confluence page publish</li>
+              <li><span class="check">✓</span> Extracts Page Properties (Initiative, Company, Portfolio, MPI)</li>
+              <li><span class="check">✓</span> Finds or creates Jira Initiative ticket</li>
+              <li><span class="check">✓</span> Creates company-specific Epic</li>
+              <li><span class="check">✓</span> Creates Tasks per action item with full labels</li>
+              <li><span class="check">✓</span> Posts summary comment back to Confluence page</li>
+              <li><span class="check">✓</span> Slack success + error notifications to #gsip-alerts</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">Label taxonomy applied</div>
+            <ul class="detail-list">
+              <li><span class="check">✓</span> doc-type, company, initiative</li>
+              <li><span class="check">✓</span> civilization, portfolio</li>
+              <li><span class="check">✓</span> partnership-stage (renamed from status)</li>
+              <li><span class="check">✓</span> status (workflow health)</li>
+              <li><span class="check">✓</span> source, accountability, meeting-type, priority</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-block" style="margin-bottom:16px">
+          <div class="detail-label">Performance</div>
+          <ul class="detail-list">
+            <li><span class="check">✓</span> ~30 seconds end-to-end</li>
+            <li><span class="check">✓</span> Saves 10–15 min of manual Jira work per meeting</li>
+            <li><span class="check">✓</span> Production-ready, DRY architecture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WF1b - Initiative Page Updater -->
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-done">🔄</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Workflow 2 — Internal Weekly Meeting Notes → Initiative Pages</div>
+          <div class="wf-subtitle">Internal weekly sync published → parse status updates by team member → update initiative home pages (child pages per v1.2)</div>
+        </div>
+        <div class="wf-status status-done">Complete</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="flow">
+          <div class="flow-node">Confluence webhook</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Publisher filter</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Parse by team member section</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Fetch initiative pages</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Serialize payload</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Confluence v2 API update</div>
+        </div>
+        <div class="blocker-banner" style="background:rgba(0,229,160,0.05);border-color:rgba(0,229,160,0.2);">
+          <div class="blocker-icon" style="color:var(--done)">✓</div>
+          <div class="blocker-text"><strong style="color:var(--done)">Working end-to-end.</strong> Publishing and editing updates initiative home pages. Child pages per initiative in place for v1.2. Next: sync with all initiative owners to understand their needs before adding further functionality.</div>
+        </div>
+        <div class="details-grid">
+          <div class="detail-block">
+            <div class="detail-label">Architecture decisions</div>
+            <ul class="detail-list">
+              <li><span class="check">✓</span> Build JSON payloads in code nodes (not HTTP expressions)</li>
+              <li><span class="check">✓</span> Strip HTML attributes for Confluence storage format</li>
+              <li><span class="check">✓</span> Fetch live page version before every write</li>
+              <li><span class="check">✓</span> Publisher → email mapping dictionary</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">Next steps</div>
+            <ul class="detail-list">
+              <li><span class="planned-c">→</span> Sync with all initiative owners on their needs</li>
+              <li><span class="planned-c">→</span> Determine additional functionality for v1.2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ON HOLD WORKFLOWS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag tag-active">⏸ On Hold</div>
+      <div class="section-title">Waiting on Dependencies</div>
+    </div>
+
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-hold">✈️</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Workflow 3 — Trip Reports → Confluence + Jira</div>
+          <div class="wf-subtitle">Google Docs trip report → Confluence page → Jira Epics/Tasks per actionable company</div>
+        </div>
+        <div class="wf-status status-hold">On Hold</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="flow">
+          <div class="flow-node">Google Doc moved to /COMPLETED</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">n8n triggered</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Claude parses sections</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Create Confluence page</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Extract actionable companies</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Salesforce lookup</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Create Epics + Tasks</div>
+        </div>
+        <div class="details-grid">
+          <div class="detail-block">
+            <div class="detail-label">MVP scope (confirmed)</div>
+            <ul class="detail-list">
+              <li><span class="check">✓</span> Initiative field required in Google Doc (blocks if missing)</li>
+              <li><span class="check">✓</span> Folder-based trigger (/TO PROCESS → /COMPLETED)</li>
+              <li><span class="check">✓</span> Strict company detection (actionable only)</li>
+              <li><span class="check">✓</span> MPI: keyword-based for MVP</li>
+              <li><span class="check">✓</span> Civilization pulled from Salesforce (not trip destination)</li>
+              <li><span class="check">✓</span> Slack notification with summary</li>
+              <li><span class="check">✓</span> If no actionable companies → Confluence only, no Jira</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">Blockers / Unanswered</div>
+            <ul class="detail-list">
+              <li><span class="block-c">✗</span> Salesforce access method (MCP vs n8n API)</li>
+              <li><span class="block-c">✗</span> Company matching logic (name fuzzy match? Account ID?)</li>
+              <li><span class="block-c">✗</span> Which Salesforce fields to pull (civilization, portfolio, status)</li>
+              <li><span class="block-c">✗</span> Google Drive folder structure + admin permissions needed</li>
+              <li><span class="block-c">✗</span> What if company not yet in Salesforce?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PLANNED NEXT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag tag-planned">→ Planned</div>
+      <div class="section-title">Next Builds</div>
+    </div>
+
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-planned">↔️</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Workflow 2a — Salesforce ↔ Jira/Confluence Sync</div>
+          <div class="wf-subtitle">Bidirectional: pull account data from SF into Jira fields; push Jira label changes back to SF opportunity stages</div>
+        </div>
+        <div class="wf-status status-planned">Planned</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="flow">
+          <div class="flow-node">Jira label change (partnership-stage)</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Webhook filter</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Map stage to SF value</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node">Update Salesforce Opportunity</div>
+        </div>
+        <div class="details-grid">
+          <div class="detail-block">
+            <div class="detail-label">Space ID lookup table (confirmed)</div>
+            <ul class="detail-list">
+              <li>BAKU <span class="planned-c">→</span> 24079138910</li>
+              <li>I&A <span class="planned-c">→</span> 24155457018</li>
+              <li>GDC <span class="planned-c">→</span> 24172691939</li>
+              <li>DICE <span class="planned-c">→</span> 24173805957</li>
+              <li>VIETNAM <span class="planned-c">→</span> 23461429623</li>
+              <li>AGENCY <span class="planned-c">→</span> 24079663258</li>
+              <li>MENA <span class="planned-c">→</span> 24095556109</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">Architecture notes</div>
+            <ul class="detail-list">
+              <li><span class="check">✓</span> SF = system of record for account data</li>
+              <li><span class="check">✓</span> Jira/Confluence = operational layer</li>
+              <li><span class="pending">⟳</span> Loop prevention required (sentinel mechanism)</li>
+              <li><span class="pending">⟳</span> Monitor issue_updated events, filter on label field</li>
+              <li><span class="pending">⟳</span> Stage mapping: opportunity → integration</li>
+            </ul>
+          </div>
+        </div>
+        <div class="open-q">
+          <div class="open-q-label">⚠ Open Questions</div>
+          <ul>
+            <li><span class="q-num">Q1</span> Salesforce credentials/access method in n8n?</li>
+            <li><span class="q-num">Q2</span> Which SF objects to update (Opportunity? Account?)</li>
+            <li><span class="q-num">Q3</span> Full stage mapping list (Jira label → SF stage value)</li>
+            <li><span class="q-num">Q4</span> Timing: webhooks (real-time) or scheduled polling?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-planned">🔐</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Jira Data Quality Enforcement</div>
+          <div class="wf-subtitle">Automation rules to flag/block tickets missing required labels, Epic links, or proper taxonomy</div>
+        </div>
+        <div class="wf-status status-planned">Planned</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="details-grid">
+          <div class="detail-block">
+            <div class="detail-label">Immediate (project-level, no admin needed)</div>
+            <ul class="detail-list">
+              <li><span class="planned-c">→</span> Automation rule: flag tickets missing portfolio label</li>
+              <li><span class="planned-c">→</span> Automation rule: flag tickets missing Epic link</li>
+              <li><span class="planned-c">→</span> Auto-comment explaining taxonomy requirements</li>
+              <li><span class="planned-c">→</span> Slack alert when non-compliant ticket created</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">Requires Jira Admin</div>
+            <ul class="detail-list">
+              <li><span class="pending">⟳</span> Mark Epic Link as required field</li>
+              <li><span class="pending">⟳</span> Mark Labels as required field</li>
+              <li><span class="pending">⟳</span> Block ticket creation if validation fails</li>
+            </ul>
+          </div>
+        </div>
+        <div class="open-q">
+          <div class="open-q-label">⚠ Action Needed</div>
+          <ul>
+            <li><span class="q-num">→</span> Request from Jira admin: make Epic Link + Labels required on GSIP project</li>
+            <li><span class="q-num">→</span> Email template drafted — needs to be sent to admin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-hold">🗺️</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Atlas Integration</div>
+          <div class="wf-subtitle">Auto-update Atlas goals/milestones from Jira + Confluence data — non-negotiable in the vision, blocked on team populating Atlas first</div>
+        </div>
+        <div class="wf-status status-hold">Blocked — Team</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="blocker-banner">
+          <div class="blocker-icon">⏳</div>
+          <div class="blocker-text"><strong>Blocked:</strong> Waiting on internal team to actually put their data into Atlas. Can't build meaningful automation against empty data. Once teams are using it, the workflow can bi-directionally sync Jira task completion → Atlas goal progress, and Confluence meeting notes → Atlas project updates.</div>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">Intended role (when unblocked)</div>
+          <ul class="detail-list">
+            <li><span class="planned-c">→</span> Jira Epic/Task completion updates Atlas milestone %</li>
+            <li><span class="planned-c">→</span> Meeting notes auto-post as Atlas project updates</li>
+            <li><span class="planned-c">→</span> Risk/blocker labels in Jira surface as Atlas health signals</li>
+            <li><span class="planned-c">→</span> Cross-team visibility without manual Atlas maintenance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-planned">🔌</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Cowork Plugin — Org-wide (GSIP as Template)</div>
+          <div class="wf-subtitle">Global standards layer for all Xsolla teams + team-specific layers on top. GSIP is the proof-of-concept. Proposed to Shurick.</div>
+        </div>
+        <div class="wf-status status-planned">In Conversation</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="details-grid">
+          <div class="detail-block">
+            <div class="detail-label">Architecture: Two-layer model</div>
+            <ul class="detail-list">
+              <li><span class="planned-c">Global</span> Jira hierarchy standards, Confluence conventions, data quality audits, shared label taxonomy</li>
+              <li><span class="planned-c">Team</span> GSIP project keys, workflow-specific slash commands, team MCP connections</li>
+              <li><span class="check">✓</span> Flexible enough for all teams; cookie-cutter won't work everywhere</li>
+              <li><span class="check">✓</span> n8n workflows = backend engine; Cowork = human interface</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">Scope + next steps</div>
+            <ul class="detail-list">
+              <li>Team plugin: ~4–6 hours</li>
+              <li>Global layer: ~4–6 hours + cross-team alignment</li>
+              <li>GSIP is built-out example #1</li>
+              <li><span class="pending">⟳</span> Awaiting Shurick response / admin role confirmation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow" onclick="toggle(this)">
+      <div class="workflow-header">
+        <div class="wf-icon icon-planned">📅</div>
+        <div class="wf-title-area">
+          <div class="wf-name">Calendar → Meeting Prep (External Team)</div>
+          <div class="wf-subtitle">Calendar parsing + pre-meeting intelligence being built by Evgeniya Klass, Ivan Vireikin, and Alina Ovchinnikova — need to sync and align on overlap with your workflows</div>
+        </div>
+        <div class="wf-status status-planned">Syncing</div>
+        <div class="wf-chevron">▶</div>
+      </div>
+      <div class="wf-body">
+        <div class="blocker-banner" style="background:rgba(0,102,255,0.05);border-color:rgba(0,102,255,0.2);">
+          <div class="blocker-icon" style="color:var(--planned)">ℹ</div>
+          <div class="blocker-text"><strong style="color:var(--planned)">Action needed:</strong> Spoke with Evgeniya — she shared screens of what's in work. Ivan and Alina own the technical details. Create new chat with them directly (misread original message — it's an invitation, not an intro from Evgeniya). Need to understand overlap/integration points with your existing workflows before building calendar pieces yourself.</div>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">People</div>
+          <ul class="detail-list">
+            <li>Evgeniya Klass — screens/design, already connected</li>
+            <li>Ivan Vireikin — technical details</li>
+            <li>Alina Ovchinnikova — technical details</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE ROADMAP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag tag-future">◎ Phase 2–3</div>
+      <div class="section-title">Future Enhancements</div>
+    </div>
+
+    <div class="phase-grid">
+      <div class="phase-col">
+        <div class="phase-col-header" style="background:rgba(0,229,160,0.08);color:var(--done)">MVP — Now</div>
+        <div class="phase-col-body">
+          <div class="phase-item">Meeting Notes → Jira (✓ done)</div>
+          <div class="phase-item">Initiative page auto-updater (debugging)</div>
+          <div class="phase-item">Basic Slack notifications</div>
+          <div class="phase-item">Label taxonomy enforcement</div>
+          <div class="phase-item">Jira data quality rules</div>
+        </div>
+      </div>
+      <div class="phase-col">
+        <div class="phase-col-header" style="background:rgba(0,102,255,0.08);color:var(--planned)">Phase 2 — Intelligence</div>
+        <div class="phase-col-body">
+          <div class="phase-item">Trip Reports workflow (Salesforce unblocked)</div>
+          <div class="phase-item">Salesforce bidirectional sync</div>
+          <div class="phase-item">SF data audit — determine which fields add value</div>
+          <div class="phase-item">Context-aware MPI classification</div>
+          <div class="phase-item">Duplicate Epic detection</div>
+          <div class="phase-item">Assignee continuity routing</div>
+          <div class="phase-item">Atlas integration (team data in first)</div>
+          <div class="phase-item">Cowork plugins — org-wide rollout</div>
+        </div>
+      </div>
+      <div class="phase-col">
+        <div class="phase-col-header" style="background:rgba(168,85,247,0.08);color:var(--future)">Phase 3 — Graph + ML</div>
+        <div class="phase-col-body">
+          <div class="phase-item">Neo4j integration — relationship graph (details TBD)</div>
+          <div class="phase-item">ML-based MPI classification (learns from corrections)</div>
+          <div class="phase-item">Auto-priority detection from context</div>
+          <div class="phase-item">Calendar integration (sync w/ Evgeniya/Ivan/Alina)</div>
+          <div class="phase-item">Weekly digest per Initiative</div>
+          <div class="phase-item">Historical partnership timeline</div>
+          <div class="phase-item">Company relationship mapping via Neo4j</div>
+        </div>
+      </div>
+      <div class="phase-col">
+        <div class="phase-col-header" style="background:rgba(236,72,153,0.08);color:var(--stretch)">Stretch — Vision</div>
+        <div class="phase-col-body">
+          <div class="phase-item">Voice notes → Jira tasks</div>
+          <div class="phase-item">Email parsing → Jira</div>
+          <div class="phase-item">Slack thread → meeting notes</div>
+          <div class="phase-item">Auto-generate trip reports</div>
+          <div class="phase-item">Meeting prep AI (talking points)</div>
+          <div class="phase-item">Auto-generate partnership proposals</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">Last synthesized: Feb 24 2026 · Source: GSIP conversation history + Meeting Notes MVP doc</div>
+
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
