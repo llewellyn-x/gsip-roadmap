@@ -71,7 +71,11 @@
   }
 
   .header-eyebrow::before {
-    display: none;
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
   }
 
   h1 {
@@ -477,11 +481,11 @@
 
   <!-- HEADER -->
   <div class="header">
-    <div class="header-eyebrow" style="margin-bottom:24px;">
-      <img src="https://media.ffycdn.net/us/xsolla/zdUJ6HsEk1Bp4YCa6aNc.png?width=600&format=webp&quality=75" alt="Xsolla" style="height:28px;margin:0;padding:0;display:block;">
+    <div class="header-eyebrow">GSIP · Technical Strategy · <img src="https://media.ffycdn.net/us/xsolla/zdUJ6HsEk1Bp4YCa6aNc.png?width=600&format=webp&quality=75" alt="Xsolla" style="height:16px;margin:0;padding:0;display:inline-block;vertical-align:middle;position:relative;top:-1px;"></div>
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:36px 40px;margin-top:24px;">
+      <h1>Workflow Automation<br><span>Roadmap</span></h1>
+      <p class="header-sub" style="margin-top:16px;">End-to-end intelligence layer connecting meeting notes, trip reports, and partnership data across Confluence, Jira, Slack, Salesforce, and Google Drive — powered by n8n + Claude AI.</p>
     </div>
-    <h1>Workflow Automation<br><span>Roadmap</span></h1>
-    <p class="header-sub">End-to-end intelligence layer connecting meeting notes, trip reports, and partnership data across Confluence, Jira, Slack, Salesforce, and Google Drive — powered by n8n + Claude AI.</p>
   </div>
 
   <!-- LEGEND -->
